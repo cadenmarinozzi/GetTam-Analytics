@@ -2,10 +2,48 @@ import { Component, createRef } from 'react';
 import { Chart, registerables } from 'chart.js';
 import ChartControls from '../ChartControls';
 import annotationPlugin from 'chartjs-plugin-annotation';
+import PropTypes from 'prop-types';
 import './Chart.scss';
 
 Chart.register(...registerables);
 Chart.register(annotationPlugin);
+
+function sanitizeData(data) {
+	return data.filter(
+		value =>
+			value !== null &&
+			value !== undefined &&
+			typeof value === 'number' &&
+			!isNaN(value)
+	);
+}
+
+function linearRegression(data) {
+	const input = sanitizeData(data);
+	const n = input.length;
+	let xSum = 0;
+	let ySum = 0;
+	let xSquaredSum = 0;
+	let xySum = 0;
+
+	input.forEach((y, x) => {
+		ySum += y;
+		xSum += x;
+		xSquaredSum += x * x;
+		xySum += x * y;
+	});
+
+	const slope = (n * xySum - xSum * ySum) / (n * xSquaredSum - xSum * xSum);
+	const yIntercept = (ySum - slope * xSum) / n;
+
+	let regressedData = [];
+
+	for (let x = 0; x < n; x++) {
+		regressedData.push(Math.floor(slope * x + yIntercept));
+	}
+
+	return regressedData;
+}
 
 class DataChart extends Component {
 	constructor(props) {
@@ -20,6 +58,8 @@ class DataChart extends Component {
 	async componentDidMount() {
 		const ctx = this.ref.current.getContext('2d');
 
+		const regressedData = linearRegression(this.props.data);
+
 		const data = {
 			labels: this.props.labels,
 			datasets: [
@@ -30,6 +70,14 @@ class DataChart extends Component {
 					borderColor: 'rgb(255, 99, 132)',
 					lineTension: 0.12,
 					data: this.props.data
+				},
+				{
+					label: `Predicted ${this.props.label}`,
+					backgroundColor: 'rgb(0, 0, 0)',
+					fill: false,
+					borderColor: 'rgb(0, 0, 0)',
+					data: regressedData,
+					pointRadius: 0
 				}
 			]
 		};
@@ -77,7 +125,11 @@ class DataChart extends Component {
 	render() {
 		return (
 			<div className="controls-container">
-				<ChartControls chartState={this.state} />
+				<ChartControls
+					averageEnabled={this.props.averageEnabled}
+					predictedEnabled={this.props.predictedEnabled}
+					chartState={this.state}
+				/>
 
 				<div className="chart-container">
 					<canvas ref={this.ref}></canvas>
@@ -86,5 +138,13 @@ class DataChart extends Component {
 		);
 	}
 }
+
+Chart.propTypes = {
+	data: PropTypes.arrayOf(PropTypes.number).isRequired,
+	labels: PropTypes.arrayOf(PropTypes.string).isRequired,
+	label: PropTypes.string.isRequired,
+	averageEnabled: PropTypes.bool,
+	predictedEnabled: PropTypes.bool
+};
 
 export default DataChart;

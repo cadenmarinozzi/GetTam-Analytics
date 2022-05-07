@@ -2,22 +2,19 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import Toggle from '../Toggle';
 
-class ChartAverage extends Component {
+class ChartPredicted extends Component {
 	handleClick(enabled) {
-		let annotation =
-			this.props.chartState.chart?.config.options.plugins.annotation
-				.annotations[0];
-		if (!annotation) return;
+		let dataset = this.props.chartState.chart?.config.data.datasets[1];
+		if (!dataset) return;
 
-		annotation.borderWidth = enabled ? 2 : 0;
-		annotation.label.enabled = enabled;
+		dataset.borderColor = enabled ? 'rgb(0, 0, 0)' : 'rgba(0,0,0,0)';
 		this.props.chartState.chart.update();
 	}
 
 	render() {
 		return (
 			<Toggle
-				label="Show Average"
+				label="Show Predicted"
 				enabled={this.props.enabled}
 				onClick={this.handleClick.bind(this)}
 			/>
@@ -25,11 +22,11 @@ class ChartAverage extends Component {
 	}
 }
 
-ChartAverage.propTypes = {
+ChartPredicted.propTypes = {
 	chartState: PropTypes.shape({
 		chart: PropTypes.object
 	}).isRequired,
 	enabled: PropTypes.bool
 };
 
-export default ChartAverage;
+export default ChartPredicted;

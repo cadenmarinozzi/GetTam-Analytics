@@ -20,15 +20,29 @@ class ChartType extends Component {
 						label: 'Line Graph',
 						default: true,
 						onClick: () => {
-							this.props.chartState.chart.config.type = 'line';
-							this.props.chartState.chart.update();
+							let chartState = this.props.chartState;
+							let config = chartState.chart.config;
+							let dataset = config.data.datasets[1];
+
+							config.type = 'line';
+
+							if (dataset.borderColor !== 'rgba(0,0,0,0)') {
+								dataset.borderColor = 'rgb(0, 0, 0)'; // Show the predicted line
+							}
+
+							chartState.chart.update();
 						}
 					},
 					{
 						label: 'Bar Graph',
 						onClick: () => {
-							this.props.chartState.chart.config.type = 'bar';
-							this.props.chartState.chart.update();
+							let chartState = this.props.chartState;
+							let config = chartState.chart.config;
+
+							config.type = 'bar';
+							config.data.datasets[1].backgroundColor =
+								'rgba(0,0,0,0)'; // Hide the predicted line
+							chartState.chart.update();
 						}
 					}
 				]}

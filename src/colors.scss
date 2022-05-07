@@ -5,3 +5,12 @@ $theme-opaque: rgba(255, 99, 132, 0.5);
 $theme-half-opaque: rgba(255, 99, 132, 0.25);
 
 $disabled: rgb(178, 178, 178);
+
+$dark: rgb(35, 35, 35);
+$light: #fff;
+
+:export {
+    theme: $theme;
+    dark: $dark;
+    light: $light;
+}

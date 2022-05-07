@@ -1,6 +1,8 @@
 import './Footer.scss';
 import GitHubIcon from '../../assets/GitHubLogo.png';
 import GetTamIcon from '../../assets/logoSmall.png';
+import GroupToggle from '../GroupToggle';
+import colors from '../../colors.scss';
 
 function Footer(props) {
 	return (

@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/gettam-analytics/static/css/main.3471c957.css",
-    "main.js": "/gettam-analytics/static/js/main.bbb9be63.js",
-    "index.html": "/gettam-analytics/index.html",
-    "main.3471c957.css.map": "/gettam-analytics/static/css/main.3471c957.css.map",
-    "main.bbb9be63.js.map": "/gettam-analytics/static/js/main.bbb9be63.js.map"
+    "main.css": "/GetTam-Analytics/static/css/main.3471c957.css",
+    "main.js": "/GetTam-Analytics/static/js/main.f573e692.js",
+    "index.html": "/GetTam-Analytics/index.html",
+    "main.3471c957.css.map": "/GetTam-Analytics/static/css/main.3471c957.css.map",
+    "main.f573e692.js.map": "/GetTam-Analytics/static/js/main.f573e692.js.map"
   },
   "entrypoints": [
     "static/css/main.3471c957.css",
-    "static/js/main.bbb9be63.js"
+    "static/js/main.f573e692.js"
   ]
 }

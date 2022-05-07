@@ -22,10 +22,10 @@ class App extends Component {
 				</Footer>
 
 				<GridContainer>
-					<UsageChart appState={this.state} />
-					<LeaderboardChart appState={this.state} />
-					<PlayersChart appState={this.state} />
-					<UsageChart appState={this.state} />
+					<UsageChart />
+					<LeaderboardChart />
+					<PlayersChart />
+					<UsageChart />
 				</GridContainer>
 			</>
 		);

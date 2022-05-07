@@ -1,12 +1,6 @@
-import { Component, createRef } from 'react';
-import { Chart, registerables } from 'chart.js';
 import { getGameDates } from '../../web/firebase';
-import ChartControls from '../ChartControls';
-import annotationPlugin from 'chartjs-plugin-annotation';
-import './UsageChart.scss';
-
-Chart.register(...registerables);
-Chart.register(annotationPlugin);
+import { Component } from 'react';
+import DataChart from '../Chart';
 
 /**
  *
@@ -29,106 +23,46 @@ function parseDate(date) {
 		comparativeDate: dateData[Symbol.toPrimitive]('number') // Get the numerical representation of the date
 	};
 }
-
-class UsageChart extends Component {
+class PlayersChart extends Component {
 	constructor(props) {
 		super(props);
 
-		this.ref = createRef();
 		this.state = {
-			chart: null
+			labels: [],
+			data: []
 		};
 	}
 
 	async componentDidMount() {
-		if (this.chart) return;
+		const gamesDates = await getGameDates();
+		const labels = Object.values(gamesDates)
+			// Map the values to the parsed date
+			.map(([key]) => parseDate(key))
+			// Sort the dates from oldest to newest
+			.sort((a, b) => a.comparativeDate - b.comparativeDate);
 
-		try {
-			// We have to do this for native error logs
-			const ctx = this.ref.current.getContext('2d');
-			const gamesDates = await getGameDates();
-			const labels = Object.values(gamesDates)
-				// Map the values to the parsed date
-				.map(([key]) => parseDate(key))
-				// Sort the dates from oldest to newest
-				.sort((a, b) => a.comparativeDate - b.comparativeDate);
-
-			const dataLabels = labels.map(
+		this.setState({
+			labels: labels.map(
 				date => date.date.toDateString().replace('2022', '') // ew
-			);
-
-			const data = {
-				labels: dataLabels,
-				datasets: [
-					{
-						label: 'Games Played',
-						backgroundColor: 'rgba(255, 99, 132, 0.5)',
-						fill: true,
-						borderColor: 'rgb(255, 99, 132)',
-						lineTension: 0.12,
-						data: Object.values(gamesDates).map(
-							// This leads to incorrect data because it's not sorted
-							dateData => dateData[1]
-						)
-					}
-				]
-			};
-
-			/* Under review */
-			function average(ctx) {
-				const values = ctx.chart.data.datasets[0].data;
-
-				return values.reduce((a, b) => a + b, 0) / values.length;
-			}
-
-			const annotation = {
-				type: 'line',
-				borderColor: 'black',
-				borderDash: [5, 5],
-				borderDashOffset: 0,
-				borderWidth: 2,
-				label: {
-					enabled: true,
-					content: context =>
-						'Average: ' + Math.floor(average(context)),
-					position: 'end'
-				},
-				scaleID: 'y',
-				value: context => Math.floor(average(context))
-			};
-			/* Under review */
-
-			const config = {
-				type: 'line',
-				data: data,
-				options: {
-					responsive: true,
-					maintainAspectRatio: true,
-					plugins: {
-						annotation: {
-							annotations: [annotation]
-						}
-					}
-				}
-			};
-
-			this.state.chart = new Chart(ctx, config);
-		} catch (err) {
-			console.error(err);
-		}
+			),
+			data: Object.values(gamesDates).map(
+				// This leads to incorrect data because it's not sorted
+				dateData => dateData[1]
+			)
+		});
 	}
 
 	render() {
-		return (
-			<div className="controls-container">
-				<ChartControls chartState={this.state} />
-
-				<div className="chart-container">
-					<canvas ref={this.ref}></canvas>
-				</div>
-			</div>
-		);
+		if (this.state.labels.length > 0) {
+			return (
+				<DataChart
+					label="Games Played"
+					labels={this.state.labels}
+					data={this.state.data}
+				/>
+			);
+		}
 	}
 }
 
-export default UsageChart;
+export default PlayersChart;

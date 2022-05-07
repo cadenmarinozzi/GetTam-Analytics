@@ -1,5 +1,5 @@
 # GetTam Analytics
-
+<img src='./assets/logoSmall.png' width=100></img>
 # Website
 To view GetTam-Analytics, visit the [website](https://nekumelon.github.io/GetTam-Analytics/)
 # Local Deployment

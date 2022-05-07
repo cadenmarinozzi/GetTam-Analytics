@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/gettam-analytics/static/css/main.3471c957.css",
+    "main.js": "/gettam-analytics/static/js/main.bbb9be63.js",
+    "index.html": "/gettam-analytics/index.html",
+    "main.3471c957.css.map": "/gettam-analytics/static/css/main.3471c957.css.map",
+    "main.bbb9be63.js.map": "/gettam-analytics/static/js/main.bbb9be63.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3471c957.css",
+    "static/js/main.bbb9be63.js"
+  ]
+}

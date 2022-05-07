@@ -1,0 +1,26 @@
+name: header
+on: 
+  push:
+    paths:
+      - '**.js'
+jobs:
+  add-header:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout to GitHub
+        uses: actions/checkout@v3
+        
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          
+      - name: make-header
+        run: |
+          python ./scripts/header.py
+      - name: Commit and push changes
+        run: |
+          git config --global user.name nekumelon
+          git config --global user.email nekumelon@gmail.com
+          git commit -am "added header"
+          git push

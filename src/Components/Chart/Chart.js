@@ -107,7 +107,7 @@ class DataChart extends Component {
 		/* Under review */
 
 		const config = {
-			type: 'line',
+			type: this.props.defaultChartType ?? 'line',
 			data: data,
 			options: {
 				responsive: true,

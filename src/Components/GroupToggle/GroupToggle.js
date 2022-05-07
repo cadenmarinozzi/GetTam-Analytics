@@ -19,14 +19,18 @@ class GroupToggle extends Component {
 		toggle.onClick();
 	}
 
+	componentDidMount() {
+		this.props.toggles.forEach(toggle => {
+			if (toggle.default) {
+				toggle.onClick();
+			}
+		});
+	}
+
 	render() {
 		const buttons = this.props.toggles.map((toggle, index) => {
 			const ref = createRef();
 			this.state.refs.push(ref);
-
-			if (toggle.default) {
-				toggle.onClick();
-			}
 
 			return (
 				<button

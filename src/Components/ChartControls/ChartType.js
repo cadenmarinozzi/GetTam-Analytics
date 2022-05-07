@@ -21,7 +21,9 @@ class ChartType extends Component {
 						default: this.props.default === 'line',
 						onClick: () => {
 							let chartState = this.props.chartState;
-							let config = chartState.chart.config;
+							let config = chartState.chart?.config;
+							if (!config) return;
+
 							let dataset = config.data.datasets[1];
 
 							config.type = 'line';
@@ -38,7 +40,8 @@ class ChartType extends Component {
 						default: this.props.default === 'bar',
 						onClick: () => {
 							let chartState = this.props.chartState;
-							let config = chartState.chart.config;
+							let config = chartState.chart?.config;
+							if (!config) return;
 
 							config.type = 'bar';
 							config.data.datasets[1].backgroundColor =

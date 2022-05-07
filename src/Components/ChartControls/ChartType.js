@@ -18,7 +18,7 @@ class ChartType extends Component {
 				toggles={[
 					{
 						label: 'Line Graph',
-						default: true,
+						default: this.props.default === 'line',
 						onClick: () => {
 							let chartState = this.props.chartState;
 							let config = chartState.chart.config;
@@ -35,6 +35,7 @@ class ChartType extends Component {
 					},
 					{
 						label: 'Bar Graph',
+						default: this.props.default === 'bar',
 						onClick: () => {
 							let chartState = this.props.chartState;
 							let config = chartState.chart.config;
@@ -54,7 +55,12 @@ class ChartType extends Component {
 ChartType.propTypes = {
 	chartState: PropTypes.shape({
 		chart: PropTypes.object
-	}).isRequired
+	}).isRequired,
+	default: PropTypes.string
+};
+
+ChartType.defaultProps = {
+	default: 'line'
 };
 
 export default ChartType;

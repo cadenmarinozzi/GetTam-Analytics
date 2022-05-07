@@ -31,6 +31,7 @@ class PlayersChart extends Component {
 					label="Score"
 					labels={this.state.labels}
 					data={this.state.data}
+					defaultChartType="bar"
 				/>
 			);
 		}

@@ -7,7 +7,10 @@ import './ChartControls.scss';
 function ChartControls(props) {
 	return (
 		<div className="controls-div">
-			<ChartType chartState={props.chartState} />
+			<ChartType
+				chartState={props.chartState}
+				default={props.defaultChartType}
+			/>
 
 			<div>
 				<ChartAverage
@@ -28,7 +31,12 @@ ChartControls.propTypes = {
 		chart: PropTypes.object
 	}).isRequired,
 	averageEnabled: PropTypes.bool,
-	predictedEnabled: PropTypes.bool
+	predictedEnabled: PropTypes.bool,
+	defaultChartType: PropTypes.string
+};
+
+ChartControls.defaultProps = {
+	defaultChartType: 'line'
 };
 
 export default ChartControls;

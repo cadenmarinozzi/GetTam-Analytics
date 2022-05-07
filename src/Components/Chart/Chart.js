@@ -69,7 +69,8 @@ class DataChart extends Component {
 					fill: true,
 					borderColor: 'rgb(255, 99, 132)',
 					lineTension: 0.12,
-					data: this.props.data
+					data: this.props.data,
+					barThickness: 7
 				},
 				{
 					label: `Predicted ${this.props.label}`,
@@ -129,6 +130,7 @@ class DataChart extends Component {
 					averageEnabled={this.props.averageEnabled}
 					predictedEnabled={this.props.predictedEnabled}
 					chartState={this.state}
+					defaultChartType={this.props.defaultChartType}
 				/>
 
 				<div className="chart-container">
@@ -144,7 +146,12 @@ Chart.propTypes = {
 	labels: PropTypes.arrayOf(PropTypes.string).isRequired,
 	label: PropTypes.string.isRequired,
 	averageEnabled: PropTypes.bool,
-	predictedEnabled: PropTypes.bool
+	predictedEnabled: PropTypes.bool,
+	defaultChartType: PropTypes.string
+};
+
+Chart.defaultProps = {
+	defaultChartType: 'line'
 };
 
 export default DataChart;

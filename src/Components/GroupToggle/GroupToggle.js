@@ -24,6 +24,10 @@ class GroupToggle extends Component {
 			const ref = createRef();
 			this.state.refs.push(ref);
 
+			if (toggle.default) {
+				toggle.onClick();
+			}
+
 			return (
 				<button
 					ref={ref}

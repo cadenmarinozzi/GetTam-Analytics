@@ -14,7 +14,7 @@ function ChartControls(props) {
 
 ChartControls.propTypes = {
 	chartState: PropTypes.shape({
-		chart: PropTypes.object.isRequired
+		chart: PropTypes.object
 	}).isRequired
 };
 

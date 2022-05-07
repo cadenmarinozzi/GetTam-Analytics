@@ -1,36 +1,14 @@
 import { Component, createRef } from 'react';
 import { Chart, registerables } from 'chart.js';
-import { getGameDates } from '../../web/firebase';
+import { getPlayers } from '../../web/firebase';
 import ChartControls from '../ChartControls';
 import annotationPlugin from 'chartjs-plugin-annotation';
-import './UsageChart.scss';
+import './PlayersChart.scss';
 
 Chart.register(...registerables);
 Chart.register(annotationPlugin);
 
-/**
- *
- * @param {string} date - The date to be formatted. Should be in the format M-D-TESTING or M-D
- * @return {Object} An object containing the parsed date
- */
-function parseDate(date) {
-	const parts = date.split('-'); // Split the date into the day, month, and testing flag
-
-	const month = parseInt(parts[0]);
-	const day = parseInt(parts[1]);
-
-	const dateData = new Date(2022, month, day); // Create the date object
-
-	return {
-		month: month,
-		day: day,
-		testing: parts[2] === 'testing',
-		date: dateData,
-		comparativeDate: dateData[Symbol.toPrimitive]('number') // Get the numerical representation of the date
-	};
-}
-
-class UsageChart extends Component {
+class LeaderboardChart extends Component {
 	constructor(props) {
 		super(props);
 
@@ -46,30 +24,22 @@ class UsageChart extends Component {
 		try {
 			// We have to do this for native error logs
 			const ctx = this.ref.current.getContext('2d');
-			const gamesDates = await getGameDates();
-			const labels = Object.values(gamesDates)
-				// Map the values to the parsed date
-				.map(([key]) => parseDate(key))
-				// Sort the dates from oldest to newest
-				.sort((a, b) => a.comparativeDate - b.comparativeDate);
-
-			const dataLabels = labels.map(
-				date => date.date.toDateString().replace('2022', '') // ew
+			const players = Object.values(await getPlayers()).filter(
+				player => player.name && player.id // Remove invalid players
 			);
+			const labels = players.map(player => player); // No need for sorting since the leaderboard is presorted
+			const dataLabels = labels.map(player => player.name);
 
 			const data = {
 				labels: dataLabels,
 				datasets: [
 					{
-						label: 'Games Played',
+						label: 'Score',
 						backgroundColor: 'rgba(255, 99, 132, 0.5)',
 						fill: true,
 						borderColor: 'rgb(255, 99, 132)',
 						lineTension: 0.12,
-						data: Object.values(gamesDates).map(
-							// This leads to incorrect data because it's not sorted
-							dateData => dateData[1]
-						)
+						data: players.map(player => player.score)
 					}
 				]
 			};
@@ -131,4 +101,4 @@ class UsageChart extends Component {
 	}
 }
 
-export default UsageChart;
+export default LeaderboardChart;

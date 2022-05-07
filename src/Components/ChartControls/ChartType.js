@@ -39,7 +39,7 @@ class ChartType extends Component {
 
 ChartType.propTypes = {
 	chartState: PropTypes.shape({
-		chart: PropTypes.object.isRequired
+		chart: PropTypes.object
 	}).isRequired
 };
 

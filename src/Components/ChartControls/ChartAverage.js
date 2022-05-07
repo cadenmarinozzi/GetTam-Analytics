@@ -36,7 +36,7 @@ class ChartAverage extends Component {
 
 ChartAverage.propTypes = {
 	chartState: PropTypes.shape({
-		chart: PropTypes.object.isRequired
+		chart: PropTypes.object
 	}).isRequired
 };
 

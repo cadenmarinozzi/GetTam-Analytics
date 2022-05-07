@@ -14,6 +14,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 const databaseRef = ref(database);
+const leaderboardRef = ref(database, 'Leaderboard');
+const testRef = ref(database, 'test');
 
 async function getDatabaseData() {
 	const databaseData = await get(databaseRef);
@@ -29,4 +31,16 @@ async function getGameDates() {
 	});
 }
 
-export { getGameDates };
+async function getPlayers() {
+	const test = await get(testRef);
+
+	return test.exists() && test.val();
+}
+
+async function getLeaderboard() {
+	const leaderboard = await get(leaderboardRef);
+
+	return leaderboard.exists() && leaderboard.val();
+}
+
+export { getGameDates, getLeaderboard, getPlayers };

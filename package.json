@@ -2,7 +2,7 @@
   "name": "gettam-analytics",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://nekumelon.github.io/gettam-analytics",
+  "homepage": "https://nekumelon.github.io/GetTam-Analytics/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",

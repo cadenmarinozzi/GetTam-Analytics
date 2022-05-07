@@ -1,0 +1,16 @@
+.grid-container {
+    margin: 100px;
+
+    display: grid;
+
+    gap: 1rem;
+    grid-template-columns: repeat(2, minmax(500px, 1fr));
+
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+
+    border-radius: 10px;
+}
+
+.grid-item {
+    padding: 20px;
+}

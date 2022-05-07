@@ -1,0 +1,41 @@
+@use './colors.scss' as *;
+
+* {
+    color: black;
+
+    margin: 0;
+    padding: 0;
+
+    font-family: 'Lato', sans-serif;
+}
+
+button {
+    border: solid;
+    border-color: $theme;
+
+    border-width: 2px;
+    border-radius: 3px;
+
+    padding: 5px;
+
+    color: $disabled;
+    background-color: white;
+}
+
+
+button:hover {
+    background-color: $theme-half-opaque;
+    transition: 0.4s;
+}
+
+button:active {
+    background-color: $theme;
+    transition: 0.4s;
+}
+
+.button-active {
+    background-color: $theme-opaque;
+    transition: 0.4s;
+
+    color: black;
+}

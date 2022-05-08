@@ -74,9 +74,13 @@ class DataChart extends Component {
 				},
 				{
 					label: `Predicted ${this.props.label}`,
-					backgroundColor: 'rgb(0, 0, 0)',
+					backgroundColor: this.props.predictedEnabled
+						? 'rgb(0, 0, 0)'
+						: 'rgba(0, 0, 0, 0)',
 					fill: false,
-					borderColor: 'rgb(0, 0, 0)',
+					borderColor: this.props.predictedEnabled
+						? 'rgb(0, 0, 0)'
+						: 'rgba(0, 0, 0, 0)',
 					data: regressedData,
 					pointRadius: 0
 				}

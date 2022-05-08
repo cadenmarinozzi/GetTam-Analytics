@@ -28,7 +28,7 @@ class ChartType extends Component {
 
 							config.type = 'line';
 
-							if (dataset.borderColor !== 'rgba(0,0,0,0)') {
+							if (dataset.borderColor !== 'rgba(0, 0, 0, 0)') {
 								dataset.borderColor = 'rgb(0, 0, 0)'; // Show the predicted line
 							}
 

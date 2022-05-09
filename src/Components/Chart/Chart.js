@@ -57,7 +57,6 @@ class DataChart extends Component {
 
 	async componentDidMount() {
 		const ctx = this.ref.current.getContext('2d');
-
 		const regressedData = linearRegression(this.props.data);
 
 		const data = {
@@ -131,6 +130,7 @@ class DataChart extends Component {
 		return (
 			<div className="controls-container">
 				<ChartControls
+					searchEnabled={this.props.searchEnabled}
 					averageEnabled={this.props.averageEnabled}
 					predictedEnabled={this.props.predictedEnabled}
 					chartState={this.state}
@@ -151,7 +151,8 @@ Chart.propTypes = {
 	label: PropTypes.string.isRequired,
 	averageEnabled: PropTypes.bool,
 	predictedEnabled: PropTypes.bool,
-	defaultChartType: PropTypes.string
+	defaultChartType: PropTypes.string,
+	searchEnabled: PropTypes.bool
 };
 
 Chart.defaultProps = {

@@ -2,6 +2,7 @@ import ChartType from './ChartType';
 import ChartAverage from './ChartAverage';
 import ChartPredicted from './ChartPredicted';
 import PropTypes from 'prop-types';
+import ChartSearch from './ChartSearch';
 import './ChartControls.scss';
 
 function ChartControls(props) {
@@ -13,6 +14,9 @@ function ChartControls(props) {
 			/>
 
 			<div>
+				{props.searchEnabled && (
+					<ChartSearch chartState={props.chartState} />
+				)}
 				<ChartAverage
 					enabled={props.averageEnabled}
 					chartState={props.chartState}
@@ -32,7 +36,8 @@ ChartControls.propTypes = {
 	}).isRequired,
 	averageEnabled: PropTypes.bool,
 	predictedEnabled: PropTypes.bool,
-	defaultChartType: PropTypes.string
+	defaultChartType: PropTypes.string,
+	searchEnabled: PropTypes.bool
 };
 
 ChartControls.defaultProps = {

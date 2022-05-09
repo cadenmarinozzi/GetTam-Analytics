@@ -27,6 +27,7 @@ class PlayersChart extends Component {
 		if (this.state.labels.length > 0) {
 			return (
 				<DataChart
+					searchEnabled
 					averageEnabled
 					label="Score"
 					labels={this.state.labels}

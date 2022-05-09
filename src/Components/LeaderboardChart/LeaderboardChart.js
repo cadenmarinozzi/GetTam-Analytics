@@ -25,6 +25,7 @@ class LeaderboardChart extends Component {
 		if (this.state.labels.length > 0) {
 			return (
 				<DataChart
+					searchEnabled
 					averageEnabled
 					predictedEnabled
 					label="Score"

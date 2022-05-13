@@ -7,7 +7,7 @@ import DataChart from '../Chart';
  * @param {string} date - The date to be formatted. Should be in the format M-D-TESTING or M-D
  * @return {Object} An object containing the parsed date
  */
-function parseDate(date) {
+function parseDate(date, value) {
 	const parts = date.split('-'); // Split the date into the day, month, and testing flag
 
 	const month = parseInt(parts[0]);
@@ -18,11 +18,13 @@ function parseDate(date) {
 	return {
 		month: month,
 		day: day,
+		gamesPlayed: value,
 		testing: parts[2] === 'testing',
 		date: dateData,
 		comparativeDate: dateData[Symbol.toPrimitive]('number') // Get the numerical representation of the date
 	};
 }
+
 class PlayersChart extends Component {
 	constructor(props) {
 		super(props);
@@ -37,7 +39,7 @@ class PlayersChart extends Component {
 		const gamesDates = await getGameDates();
 		const labels = Object.values(gamesDates)
 			// Map the values to the parsed date
-			.map(([key]) => parseDate(key))
+			.map(([key, value]) => parseDate(key, value))
 			// Sort the dates from oldest to newest
 			.sort((a, b) => a.comparativeDate - b.comparativeDate);
 
@@ -45,10 +47,7 @@ class PlayersChart extends Component {
 			labels: labels.map(
 				date => date.date.toDateString().replace('2022', '') // ew
 			),
-			data: Object.values(gamesDates).map(
-				// This leads to incorrect data because it's not sorted
-				dateData => dateData[1]
-			)
+			data: labels.map(dateData => dateData.gamesPlayed)
 		});
 	}
 

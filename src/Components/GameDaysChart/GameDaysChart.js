@@ -68,7 +68,8 @@ class GameDaysChart extends Component {
 
 		return (
 			<PieChart
-				label="Games Played"
+				type="polarArea"
+				label="Games Played Per Day"
 				labels={[
 					[
 						'Mon',

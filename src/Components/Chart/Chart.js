@@ -63,9 +63,6 @@ class PieChart extends Component {
 			datasets: [
 				{
 					label: this.props.label,
-					// backgroundColor: ctx => {
-					// 	return this.props.labels[ctx.dataIndex][1];
-					// },
 					backgroundColor: context => {
 						const chartArea = context.chart.chartArea;
 						if (!chartArea) return;
@@ -85,7 +82,7 @@ class PieChart extends Component {
 							0,
 							centerX,
 							centerY,
-							r - 120
+							r
 						);
 						gradient.addColorStop(0, 'rgba(255, 99, 132, 0.4)');
 						gradient.addColorStop(1, color);
@@ -102,11 +99,17 @@ class PieChart extends Component {
 		};
 
 		const config = {
-			type: 'polarArea',
+			type: this.props.type ?? 'pie',
 			data: data,
 			options: {
 				responsive: true,
-				maintainAspectRatio: true
+				maintainAspectRatio: true,
+				plugins: {
+					title: {
+						display: true,
+						text: this.props.label
+					}
+				}
 			}
 		};
 
@@ -124,7 +127,8 @@ class PieChart extends Component {
 
 PieChart.propTypes = {
 	data: PropTypes.arrayOf(PropTypes.number).isRequired,
-	label: PropTypes.string.isRequired
+	label: PropTypes.string.isRequired,
+	type: PropTypes.string
 };
 
 class DataChart extends Component {
@@ -141,16 +145,28 @@ class DataChart extends Component {
 		const ctx = this.ref.current.getContext('2d');
 		const regressedData = linearRegression(this.props.data);
 
-		let gradient = ctx.createLinearGradient(0, 120, 0, 200);
-		gradient.addColorStop(0, 'rgba(255, 99, 132, 0.7)');
-		gradient.addColorStop(1, 'rgba(255, 99, 132, 0)');
-
 		const data = {
 			labels: this.props.labels,
 			datasets: [
 				{
 					label: this.props.label,
-					backgroundColor: gradient,
+					backgroundColor: context => {
+						const chartArea = context.chart.chartArea;
+						if (!chartArea) return;
+
+						const centerY = (chartArea.top + chartArea.bottom) / 2;
+
+						let gradient = ctx.createLinearGradient(
+							0,
+							centerY,
+							0,
+							chartArea.bottom
+						);
+						gradient.addColorStop(0, 'rgba(255, 99, 132, 0.7)');
+						gradient.addColorStop(1, 'rgba(255, 99, 132, 0)');
+
+						return gradient;
+					},
 					fill: true,
 					borderColor: 'rgb(255, 99, 132)',
 					lineTension: 0.12,

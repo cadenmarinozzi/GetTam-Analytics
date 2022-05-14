@@ -4,6 +4,8 @@ import GridContainer from './Components/GridContainer';
 import LeaderboardChart from './Components/LeaderboardChart';
 import PlayersChart from './Components/PlayersChart';
 import GameDaysChart from './Components/GameDaysChart';
+import { InappropriateUsersChart } from './Components/InappropriateUsersChart';
+import InvalidPlayersChart from './Components/InvalidPlayersChart';
 import Footer from './Components/Footer';
 import { Component } from 'react';
 
@@ -27,6 +29,11 @@ class App extends Component {
 					<LeaderboardChart />
 					<PlayersChart />
 					<GameDaysChart />
+				</GridContainer>
+
+				<GridContainer>
+					<InappropriateUsersChart />
+					<InvalidPlayersChart />
 				</GridContainer>
 			</>
 		);

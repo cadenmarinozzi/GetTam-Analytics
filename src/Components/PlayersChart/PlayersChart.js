@@ -1,6 +1,7 @@
 import { getPlayers } from '../../web/firebase';
 import { Component } from 'react';
 import { DataChart } from '../Chart';
+import validatePlayer from '../../web/validate';
 
 class PlayersChart extends Component {
 	constructor(props) {
@@ -14,7 +15,7 @@ class PlayersChart extends Component {
 
 	async componentDidMount() {
 		const players = Object.values(await getPlayers()).filter(
-			player => player.name && player.id
+			player => !validatePlayer(player)
 		); // Remove invalid players
 
 		this.setState({

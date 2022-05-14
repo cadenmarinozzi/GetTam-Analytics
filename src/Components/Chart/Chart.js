@@ -45,6 +45,88 @@ function linearRegression(data) {
 	return regressedData;
 }
 
+class PieChart extends Component {
+	constructor(props) {
+		super(props);
+
+		this.ref = createRef();
+		this.state = {
+			chart: null
+		};
+	}
+
+	componentDidMount() {
+		const ctx = this.ref.current.getContext('2d');
+
+		const data = {
+			labels: this.props.labels.map(([label]) => label),
+			datasets: [
+				{
+					label: this.props.label,
+					// backgroundColor: ctx => {
+					// 	return this.props.labels[ctx.dataIndex][1];
+					// },
+					backgroundColor: context => {
+						const chartArea = context.chart.chartArea;
+						if (!chartArea) return;
+
+						const color = this.props.labels[context.dataIndex][1];
+
+						const centerX = (chartArea.left + chartArea.right) / 2;
+						const centerY = (chartArea.top + chartArea.bottom) / 2;
+						const r = Math.min(
+							(chartArea.right - chartArea.left) / 2,
+							(chartArea.bottom - chartArea.top) / 2
+						);
+
+						let gradient = ctx.createRadialGradient(
+							centerX,
+							centerY,
+							0,
+							centerX,
+							centerY,
+							r - 120
+						);
+						gradient.addColorStop(0, 'rgba(255, 99, 132, 0.4)');
+						gradient.addColorStop(1, color);
+
+						return gradient;
+					},
+					fill: true,
+					borderColor: 'rgb(255, 99, 132)',
+					lineTension: 0.12,
+					data: this.props.data,
+					barThickness: 7
+				}
+			]
+		};
+
+		const config = {
+			type: 'polarArea',
+			data: data,
+			options: {
+				responsive: true,
+				maintainAspectRatio: true
+			}
+		};
+
+		this.state.chart = new Chart(ctx, config);
+	}
+
+	render() {
+		return (
+			<div className="chart-container pie-chart-container">
+				<canvas ref={this.ref}></canvas>
+			</div>
+		);
+	}
+}
+
+PieChart.propTypes = {
+	data: PropTypes.arrayOf(PropTypes.number).isRequired,
+	label: PropTypes.string.isRequired
+};
+
 class DataChart extends Component {
 	constructor(props) {
 		super(props);
@@ -55,16 +137,20 @@ class DataChart extends Component {
 		};
 	}
 
-	async componentDidMount() {
+	componentDidMount() {
 		const ctx = this.ref.current.getContext('2d');
 		const regressedData = linearRegression(this.props.data);
+
+		let gradient = ctx.createLinearGradient(0, 120, 0, 200);
+		gradient.addColorStop(0, 'rgba(255, 99, 132, 0.7)');
+		gradient.addColorStop(1, 'rgba(255, 99, 132, 0)');
 
 		const data = {
 			labels: this.props.labels,
 			datasets: [
 				{
 					label: this.props.label,
-					backgroundColor: 'rgba(255, 99, 132, 0.5)',
+					backgroundColor: gradient,
 					fill: true,
 					borderColor: 'rgb(255, 99, 132)',
 					lineTension: 0.12,
@@ -145,7 +231,7 @@ class DataChart extends Component {
 	}
 }
 
-Chart.propTypes = {
+DataChart.propTypes = {
 	data: PropTypes.arrayOf(PropTypes.number).isRequired,
 	labels: PropTypes.arrayOf(PropTypes.string).isRequired,
 	label: PropTypes.string.isRequired,
@@ -155,8 +241,8 @@ Chart.propTypes = {
 	searchEnabled: PropTypes.bool
 };
 
-Chart.defaultProps = {
+DataChart.defaultProps = {
 	defaultChartType: 'line'
 };
 
-export default DataChart;
+export { DataChart, PieChart };

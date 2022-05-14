@@ -1,6 +1,6 @@
 import { getGameDates } from '../../web/firebase';
 import { Component } from 'react';
-import DataChart from '../Chart';
+import { DataChart } from '../Chart';
 
 /**
  *

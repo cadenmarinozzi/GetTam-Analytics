@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import DataChart from '../Chart';
+import { DataChart } from '../Chart';
 import { getLeaderboard } from '../../web/firebase';
 
 class LeaderboardChart extends Component {

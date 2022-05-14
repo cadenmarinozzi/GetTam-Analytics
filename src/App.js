@@ -3,6 +3,7 @@ import Title from './Components/Title';
 import GridContainer from './Components/GridContainer';
 import LeaderboardChart from './Components/LeaderboardChart';
 import PlayersChart from './Components/PlayersChart';
+import GameDaysChart from './Components/GameDaysChart';
 import Footer from './Components/Footer';
 import { Component } from 'react';
 
@@ -25,7 +26,7 @@ class App extends Component {
 					<UsageChart />
 					<LeaderboardChart />
 					<PlayersChart />
-					<UsageChart />
+					<GameDaysChart />
 				</GridContainer>
 			</>
 		);

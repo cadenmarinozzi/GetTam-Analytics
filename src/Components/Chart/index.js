@@ -1,1 +1,1 @@
-export { default } from './Chart.js';
+export { DataChart, PieChart } from './Chart.js';

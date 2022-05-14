@@ -1,6 +1,6 @@
 import { getPlayers } from '../../web/firebase';
 import { Component } from 'react';
-import DataChart from '../Chart';
+import { DataChart } from '../Chart';
 
 class PlayersChart extends Component {
 	constructor(props) {

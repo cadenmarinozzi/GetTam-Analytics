@@ -14,12 +14,14 @@ class PlayersChart extends Component {
 	}
 
 	async componentDidMount() {
-		const players = Object.values(await getPlayers()).filter(
-			player => !validatePlayer(player)
-		); // Remove invalid players
+		const players = Object.values(await getPlayers())
+			.filter(player => !validatePlayer(player))
+			.sort((a, b) => a.score - b.score); // Remove invalid players and sort by score
 
 		this.setState({
-			labels: players.map(player => player.name),
+			labels: players.map(
+				(player, index) => `${player.name} (${players.length - index})`
+			),
 			data: players.map(player => player.score)
 		});
 	}

@@ -135,6 +135,5 @@ module.exports = [
 	'peen',
 	'hoe',
 	'nuts',
-	'booty',
-	'butt'
+	'booty'
 ];

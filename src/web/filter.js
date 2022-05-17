@@ -3,9 +3,9 @@ import badwords from './badwords';
 
 function contentFilter(text) {
 	for (const badword of badwords) {
-		const bad = text.toLowerCase().includes(badword);
-
-		if (bad) return true;
+		if (text.toLowerCase().includes(badword)) {
+			return true;
+		}
 	}
 }
 

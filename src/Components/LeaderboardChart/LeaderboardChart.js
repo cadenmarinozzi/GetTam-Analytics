@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { DataChart } from '../Chart';
 import { getLeaderboard } from '../../web/firebase';
+import validatePlayer from '../../web/validate';
 
 class LeaderboardChart extends Component {
 	constructor(props) {
@@ -13,10 +14,15 @@ class LeaderboardChart extends Component {
 	}
 
 	async componentDidMount() {
-		const leaderboard = (await getLeaderboard()).reverse(); // We reverse the data so it's in descending order
+		const leaderboard = (await getLeaderboard())
+			.reverse()
+			.filter(player => !validatePlayer(player)); // We reverse the data so it's in descending order
 
 		this.setState({
-			labels: leaderboard.map(player => player.name),
+			labels: leaderboard.map(
+				(player, index) =>
+					`${player.name} (${leaderboard.length - index})`
+			),
 			data: leaderboard.map(player => player.score)
 		});
 	}

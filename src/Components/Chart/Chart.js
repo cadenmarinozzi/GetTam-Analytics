@@ -172,21 +172,24 @@ class DataChart extends Component {
 					lineTension: 0.12,
 					data: this.props.data,
 					barThickness: 7
-				},
-				{
-					label: `Predicted ${this.props.label}`,
-					backgroundColor: this.props.predictedEnabled
-						? 'rgb(0, 0, 0)'
-						: 'rgba(0, 0, 0, 0)',
-					fill: false,
-					borderColor: this.props.predictedEnabled
-						? 'rgb(0, 0, 0)'
-						: 'rgba(0, 0, 0, 0)',
-					data: regressedData,
-					pointRadius: 0
 				}
 			]
 		};
+
+		if (this.props.predictedEnabled) {
+			data.datasets.push({
+				label: `Predicted ${this.props.label}`,
+				backgroundColor: this.props.predictedEnabled
+					? 'rgb(0, 0, 0)'
+					: 'rgba(0, 0, 0, 0)',
+				fill: false,
+				borderColor: this.props.predictedEnabled
+					? 'rgb(0, 0, 0)'
+					: 'rgba(0, 0, 0, 0)',
+				data: regressedData,
+				pointRadius: 0
+			});
+		}
 
 		/* Under review */
 		function average(ctx) {

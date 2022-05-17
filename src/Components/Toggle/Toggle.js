@@ -22,7 +22,9 @@ class Toggle extends Component {
 
 		this.setState(state => {
 			const newRef = state.ref;
-			newRef.current.className = state.enabled ? 'button-active' : '';
+			newRef.current.className = state.enabled
+				? 'button-active'
+				: 'button-inactive';
 
 			return { newRef };
 		});
@@ -34,7 +36,9 @@ class Toggle extends Component {
 				<button
 					ref={this.state.ref}
 					onClick={this.handleClick.bind(this)}
-					className={this.props.enabled ? 'button-active' : ''}
+					className={
+						this.props.enabled ? 'button-active' : 'button-inactive'
+					}
 				>
 					{this.props.label}
 				</button>

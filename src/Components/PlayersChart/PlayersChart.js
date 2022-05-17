@@ -2,6 +2,7 @@ import { getPlayers } from '../../web/firebase';
 import { Component } from 'react';
 import { DataChart } from '../Chart';
 import validatePlayer from '../../web/validate';
+import PropTypes from 'prop-types';
 
 class PlayersChart extends Component {
 	constructor(props) {
@@ -36,10 +37,15 @@ class PlayersChart extends Component {
 					labels={this.state.labels}
 					data={this.state.data}
 					defaultChartType="bar"
+					theme={this.props.theme}
 				/>
 			);
 		}
 	}
 }
+
+PlayersChart.propTypes = {
+	theme: PropTypes.string
+};
 
 export default PlayersChart;

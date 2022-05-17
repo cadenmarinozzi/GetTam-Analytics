@@ -1,6 +1,7 @@
 import { getGameDates } from '../../web/firebase';
 import { Component } from 'react';
 import { DataChart } from '../Chart';
+import PropTypes from 'prop-types';
 
 /**
  *
@@ -25,7 +26,7 @@ function parseDate(date, value) {
 	};
 }
 
-class PlayersChart extends Component {
+class UsageChart extends Component {
 	constructor(props) {
 		super(props);
 
@@ -60,10 +61,15 @@ class PlayersChart extends Component {
 					label="Games Played"
 					labels={this.state.labels}
 					data={this.state.data}
+					theme={this.props.theme}
 				/>
 			);
 		}
 	}
 }
 
-export default PlayersChart;
+UsageChart.propTypes = {
+	theme: PropTypes.string
+};
+
+export default UsageChart;

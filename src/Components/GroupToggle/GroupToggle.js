@@ -13,21 +13,25 @@ class GroupToggle extends Component {
 	handleClick(ref, toggle) {
 		this.state.refs.forEach(otherRef => {
 			otherRef.current.className =
-				otherRef === ref ? 'button-active' : '';
+				otherRef === ref ? 'button-active' : 'button-inactive';
 		});
 
-		toggle.onClick();
+		if (toggle.onClick) {
+			toggle.onClick();
+		}
 	}
 
 	componentDidMount() {
 		this.props.toggles.forEach(toggle => {
-			if (toggle.default) {
+			if (toggle.default && toggle.onClick) {
 				toggle.onClick();
 			}
 		});
 	}
 
 	render() {
+		this.state.refs = [];
+
 		const buttons = this.props.toggles.map((toggle, index) => {
 			const ref = createRef();
 			this.state.refs.push(ref);
@@ -37,7 +41,9 @@ class GroupToggle extends Component {
 					ref={ref}
 					onClick={this.handleClick.bind(this, ref, toggle)}
 					key={index}
-					className={toggle.default ? 'button-active' : ''}
+					className={
+						toggle.default ? 'button-active' : 'button-inactive'
+					}
 				>
 					{toggle.label}
 				</button>

@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { getPlayers } from '../../web/firebase';
 import { PieChart } from '../Chart';
 import validatePlayer from '../../web/validate';
+import PropTypes from 'prop-types';
 
 class InvalidPlayers extends Component {
 	constructor(props) {
@@ -36,9 +37,14 @@ class InvalidPlayers extends Component {
 					this.state.invalidPlayers.length,
 					this.state.players.length
 				]}
+				theme={this.props.theme}
 			/>
 		);
 	}
 }
+
+InvalidPlayers.propTypes = {
+	theme: PropTypes.string
+};
 
 export default InvalidPlayers;

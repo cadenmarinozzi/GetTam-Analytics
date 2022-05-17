@@ -1,6 +1,7 @@
 import { getGameDates } from '../../web/firebase';
 import { Component } from 'react';
 import { PieChart } from '../Chart';
+import PropTypes from 'prop-types';
 
 const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
@@ -70,7 +71,9 @@ class GameDaysChart extends Component {
 			<PieChart
 				type="polarArea"
 				label="Games Played Per Day"
+				theme={this.props.theme}
 				labels={[
+					// I need to make this a for loop so it's not so ugly
 					[
 						'Mon',
 						`rgba(255, 142, ${
@@ -119,5 +122,9 @@ class GameDaysChart extends Component {
 		);
 	}
 }
+
+GameDaysChart.propTypes = {
+	theme: PropTypes.string
+};
 
 export default GameDaysChart;

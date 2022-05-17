@@ -7,4 +7,12 @@ input {
     width: 120px;
 
     outline-color: $theme;
+
+    border: solid;
+    border-color: black;
+
+    border-radius: 3px;
+    border-width: 1px;
+
+    background: $invisible;
 }

@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { DataChart } from '../Chart';
 import { getLeaderboard } from '../../web/firebase';
 import validatePlayer from '../../web/validate';
+import PropTypes from 'prop-types';
 
 class LeaderboardChart extends Component {
 	constructor(props) {
@@ -37,10 +38,15 @@ class LeaderboardChart extends Component {
 					label="Score"
 					labels={this.state.labels}
 					data={this.state.data}
+					theme={this.props.theme}
 				/>
 			);
 		}
 	}
 }
+
+LeaderboardChart.propTypes = {
+	theme: PropTypes.string
+};
 
 export default LeaderboardChart;

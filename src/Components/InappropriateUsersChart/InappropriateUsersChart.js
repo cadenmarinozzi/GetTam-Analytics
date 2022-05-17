@@ -2,6 +2,7 @@ import { getPlayers } from '../../web/firebase';
 import { PieChart } from '../Chart';
 import filter from '../../web/filter';
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class InappropriateUsersChart extends Component {
 	constructor(props) {
@@ -35,10 +36,15 @@ class InappropriateUsersChart extends Component {
 						this.state.players.length,
 						this.state.inappropriateUsers.length
 					]}
+					thene={this.props.theme}
 				/>
 			</div>
 		);
 	}
 }
+
+InappropriateUsersChart.propTypes = {
+	theme: PropTypes.string
+};
 
 export { InappropriateUsersChart };

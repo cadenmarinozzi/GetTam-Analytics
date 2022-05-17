@@ -113,10 +113,39 @@ class PieChart extends Component {
 			}
 		};
 
+		if (config.type !== 'pie') {
+			config.options.scales = {
+				r: {
+					ticks: {
+						backdropColor: 'rgba(0, 0, 0, 0)'
+					}
+				}
+			};
+		}
+
 		this.state.chart = new Chart(ctx, config);
 	}
 
 	render() {
+		let chart = this.state?.chart;
+		let options = Chart.overrides[chart?.config?.type];
+
+		if (options) {
+			const color = this.props.theme === 'light' ? 'black' : '#aaa';
+
+			options.plugins.title = {
+				color: color
+			};
+
+			options.plugins.legend = {
+				labels: {
+					color: color
+				}
+			};
+
+			chart.update();
+		}
+
 		return (
 			<div className="chart-container pie-chart-container">
 				<canvas ref={this.ref}></canvas>
@@ -128,7 +157,8 @@ class PieChart extends Component {
 PieChart.propTypes = {
 	data: PropTypes.arrayOf(PropTypes.number).isRequired,
 	label: PropTypes.string.isRequired,
-	type: PropTypes.string
+	type: PropTypes.string,
+	theme: PropTypes.string
 };
 
 class DataChart extends Component {
@@ -232,6 +262,22 @@ class DataChart extends Component {
 	}
 
 	render() {
+		let chart = this.state?.chart;
+		let options = chart?.config?.options;
+
+		if (options) {
+			const color = this.props.theme === 'light' ? 'black' : '#aaa';
+
+			options.plugins.legend = {
+				labels: {
+					color: color
+				}
+			};
+			options.scales.y.ticks.color = color;
+			options.scales.x.ticks.color = color;
+			chart.update();
+		}
+
 		return (
 			<div className="controls-container">
 				<ChartControls
@@ -257,7 +303,8 @@ DataChart.propTypes = {
 	averageEnabled: PropTypes.bool,
 	predictedEnabled: PropTypes.bool,
 	defaultChartType: PropTypes.string,
-	searchEnabled: PropTypes.bool
+	searchEnabled: PropTypes.bool,
+	theme: PropTypes.string
 };
 
 DataChart.defaultProps = {

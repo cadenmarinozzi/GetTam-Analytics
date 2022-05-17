@@ -6,11 +6,16 @@ $theme-half-opaque: rgba(255, 99, 132, 0.25);
 
 $disabled: rgb(178, 178, 178);
 
-$dark: rgb(35, 35, 35);
+$dark: rgb(55, 55, 55);
 $light: #fff;
+
+$mid: rgb(72, 72, 72);
 
 :export {
     theme: $theme;
+    themeopaque: $theme-opaque;
+    themehalfopaque: $theme-half-opaque;
     dark: $dark;
     light: $light;
+    mid: $mid;
 }

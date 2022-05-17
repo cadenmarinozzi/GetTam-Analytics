@@ -19,9 +19,8 @@ button {
     padding: 5px;
 
     color: $disabled;
-    background-color: white;
+    background-color: $invisible;
 }
-
 
 button:hover {
     background-color: $theme-half-opaque;

@@ -1,3 +1,5 @@
+@use '../../colors.scss' as *;
+
 footer {
     position: fixed;
     top: 0;
@@ -7,7 +9,7 @@ footer {
     width: 100%;
 
     color: gray;
-    background-color: #fafafa;
+    background: white;
 
     font-size: 0.8rem;
 

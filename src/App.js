@@ -7,37 +7,30 @@ import GameDaysChart from './Components/GameDaysChart';
 import { InappropriateUsersChart } from './Components/InappropriateUsersChart';
 import InvalidPlayersChart from './Components/InvalidPlayersChart';
 import Footer from './Components/Footer';
-import { Component } from 'react';
+import { useState } from 'react';
 
-class App extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			loading: true
-		};
-	}
+function App() {
+	let [theme, setTheme] = useState('light');
 
-	render() {
-		return (
-			<>
-				<Footer>
-					<Title>GetTam Analytics</Title>
-				</Footer>
+	return (
+		<>
+			<Footer setTheme={setTheme}>
+				<Title>GetTam Analytics</Title>
+			</Footer>
 
-				<GridContainer>
-					<UsageChart />
-					<LeaderboardChart />
-					<PlayersChart />
-					<GameDaysChart />
-				</GridContainer>
+			<GridContainer>
+				<UsageChart theme={theme} />
+				<LeaderboardChart theme={theme} />
+				<PlayersChart theme={theme} />
+				<GameDaysChart theme={theme} />
+			</GridContainer>
 
-				<GridContainer>
-					<InappropriateUsersChart />
-					<InvalidPlayersChart />
-				</GridContainer>
-			</>
-		);
-	}
+			<GridContainer>
+				<InappropriateUsersChart theme={theme} />
+				<InvalidPlayersChart theme={theme} />
+			</GridContainer>
+		</>
+	);
 }
 
 export default App;

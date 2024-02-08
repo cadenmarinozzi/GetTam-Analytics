@@ -91,7 +91,7 @@ function Footer(props) {
 				<a href="https://lankmann.github.io/GetTam">
 					<img width="25" alt="GetTam Icon" src={GetTamIcon}></img>
 				</a>
-				<a href="https://github.com/nekumelon/GetTam-Analytics">
+				<a href="https://github.com/cadenmarinozzi/GetTam-Analytics">
 					<img width="25" alt="GitHub Icon" src={GitHubIcon}></img>
 				</a>
 			</div>
